@@ -11,9 +11,9 @@ https://www.bilibili.com/video/BV1zq4y1p7ga?p=14&spm_id_from=pageDriver&vd_sourc
 - webpack使用
   - 安装：`npm i webpack webpack-cli -D`
   - 在根目录创建：`webpack.config.js`
-   ![](20220914-20220918/images/webpack.config.js.png)
+   ![](20220914-20220915/images/webpack.config.js.png)
   - 在 package.json 的 scripts 节点下，新增 dev 脚本如下：
-   ![](20220914-20220918/images/package.json.png)
+   ![](20220914-20220915/images/package.json.png)
   - 在终端中运行 npm run dev 命令，启动 webpack 进行项目的打包
   - mode有开发和生产两个环境
   - 默认从`src/index.js`打包到`dist/main.js`
@@ -22,7 +22,7 @@ https://www.bilibili.com/video/BV1zq4y1p7ga?p=14&spm_id_from=pageDriver&vd_sourc
 - webpack-dev-server插件：修改代码自动重新打包 
   - 安装
   - 修改 package.json -> scripts 中的 dev 命令如下：
-   ![](20220914-20220918/images/webpack-dev-server插件配置.png)
+   ![](20220914-20220915/images/webpack-dev-server插件配置.png)
   - 再次运行 npm run dev 命令，重新进行项目的打包
   - 在浏览器中访问 http://localhost:8080 地址，查看自动打包效果
   - 注：webpack-dev-server 会启动一个实时打包的 http 服务器
