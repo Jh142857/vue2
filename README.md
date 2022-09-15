@@ -35,3 +35,35 @@ https://www.bilibili.com/video/BV1zq4y1p7ga?p=14&spm_id_from=pageDriver&vd_sourc
 
 - webpack.config.js的devServer节点配置
  ![](20220914-20220918/images/webpack的devServer节点配置.png) 
+
+ #### 2022.09.15 P14-P31
+- loader(插件大杂烩)
+- css-loader：针对`import './css/index.css'`类似的es6语法
+  - 安装：`npm i style-loader css-loader -D`
+  - 在`webpack.config.js`中
+  - ` module: {rules[/\.css$/, use:['style-loader', 'css-loader']]}`
+  - 从后往前处理
+- less-loader：针对`import './less/index.less'`类似的es6语法
+  - 安装：`npm i less-loader less -D`
+  - 在`webpack.config.js`中
+  - ` module: {rules[/\.less$/, use:['style-loader', 'css-loader', 'less-loader']]}`
+- url-loader：
+  - 安装：`npm i file-loader url-loader -D`
+  - 在`webpack.config.js`中
+  - ` module: {rules[/\.jpg|png|gif$/, use:'url-loader&limt=22229']}`
+  - 只有小于limit时，才会转为base64格式（减少服务器压力）
+- babel-loader：
+  - 安装：`npm i babel-loader @babel/core @babel/plugin-proposal-decorators -D`
+  - 在`webpack.config.js`中
+  - ` module: {rules[/\.js$/, use:'babel-loader', exclude:/node_modules/]}`
+  - 新建babel.config.js文件
+  - `module.exports = {
+    "plugins": [["@babel/plugin-proposal-decorators", { "version": "legacy" }]]
+}`
+
+- 发布:build->优化路径->自动清理
+   ![](20220914-20220915/images/webpack发布1.png)
+   ![](20220914-20220915/images/webpack发布2.png)
+   ![](20220914-20220915/images/webpack发布3.png)
+   ![](20220914-20220915/images/webpack发布4.png)
+  - 注：清理也可以用`output{clean:true}`
