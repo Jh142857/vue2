@@ -15,7 +15,7 @@ function info(target) {
 }
 
 @info
-class Person{}
+class Person { }
 
 console.log(Person.info);
 

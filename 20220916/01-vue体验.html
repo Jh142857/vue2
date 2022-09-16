@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p v-text="username">姓名</p>
+        <p v-html="info"></p>
+        <input type="text" :placeholder="tips">
+        <div>{{count}}</div>
+        <button v-on:click="add(1, $event)">+1</button>
+        <input type="text" @keyup.esc="clear">
+        <select v-model="city">
+            <option value="">请选择城市</option>
+            <option value="1">北京</option>
+            <option value="2">上海</option>
+        </select>
+        <hr>
+        <input type="text" v-model.number="n1"> + <input type="text" v-model.number="n2"> = <span>{{ n1 + n2}}</span>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                username: 'zs',
+                gender: '女',
+                info: '<h4>1111</h4>',
+                tips: '请输入用户名',
+                index: 1,
+                count: 1,
+                city: '',
+                n1: 1,
+                n2: 1,
+            },
+            methods: {
+                add(n, e) {
+                    console.log(e);
+                    this.count += n;
+                },
+                clear(e) {
+                    // 修改事件触发对象用e.target
+                    e.target.value = '';
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

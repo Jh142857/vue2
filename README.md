@@ -31,10 +31,10 @@ https://www.bilibili.com/video/BV1zq4y1p7ga?p=14&spm_id_from=pageDriver&vd_sourc
 - html-webpack-plugin插件
   - 安装
   - 使用：在`webpack.config.js`导入`html-webpack-plugin`包->创造构造函数实例->写在`module.exports.plugin`中
-   ![](20220914-20220918/images/html-webpack-plugin插件配置.png)
+   ![](20220914-20220915/images/html-webpack-plugin插件配置.png)
 
 - webpack.config.js的devServer节点配置
- ![](20220914-20220918/images/webpack的devServer节点配置.png) 
+ ![](20220914-20220915/images/webpack的devServer节点配置.png) 
 
  #### 2022.09.15 P14-P31
 - loader(插件大杂烩)
@@ -67,3 +67,57 @@ https://www.bilibili.com/video/BV1zq4y1p7ga?p=14&spm_id_from=pageDriver&vd_sourc
    ![](20220914-20220915/images/webpack发布3.png)
    ![](20220914-20220915/images/webpack发布4.png)
   - 注：清理也可以用`output{clean:true}`
+
+#### 2022.09.16 P32-P51
+- Vue使用
+  - 导入vue库
+  - 此时页面多了一个Vue构造函数
+  - 渲染页面时可以直接调用数据名；绑定事件时可以直接调用方法
+```js 
+const vm = new Vue({
+    el: '#app',
+    data: {
+        // 此处是数据
+        username: 'zs',
+        gender: '女',
+        info: '<h4>1111</h4>',
+        tips: '请输入用户名',
+        index: 1,
+        count: 1,
+        city: '',
+    },
+    methods: {
+        // 此处是方法
+        add(n, e) {
+            console.log(e);
+            this.count += n;
+        },
+        clear(e) {
+            // 修改事件触发对象用e.target
+            e.target.value = '';
+        }
+    },
+})
+```
+
+- 内容渲染指令
+  - v-text：会覆盖元素内默认的值，并且不能渲染html
+  - {{}}插值表达式
+  - v-html：可以直接将带有标签的字符串渲染成html内容
+
+- 属性渲染指令
+  - v-bind：动态绑定属性值，可以简写为:，如`v-bind:placeholder`写为`:placeholder`
+  - 注：插值表达式和属性渲染v-bind中均可以进行表达式的运算
+
+- 事件绑定指令
+  - `v-on:click=add(n)`或`@click=add(n)`   
+  - 如果要用DOM中的事件对象，可以用`$event`传入实参
+  - 事件修饰符： `@click.prevent=add(n)`：阻止默认行为
+   ![](20220916/images/事件修饰符.png)
+  - 案件修饰符：只有按键事件才有的
+   ![](20220916/images/按键修饰符.png)
+
+- 双向事件绑定：`v-model`，页面表单数据实时同步到vue中
+  ![](20220916/images/双向事件绑定.png)
+  - 指令修饰符
+   ![](20220916/images/指令修饰符.png)
