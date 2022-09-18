@@ -59,7 +59,7 @@ https://www.bilibili.com/video/BV1zq4y1p7ga?p=14&spm_id_from=pageDriver&vd_sourc
   - 新建babel.config.js文件
   - `module.exports = {
     "plugins": [["@babel/plugin-proposal-decorators", { "version": "legacy" }]]
-}`
+    }`
 
 - 发布:build->优化路径->自动清理
    ![](20220914-20220915/images/webpack发布1.png)
@@ -121,3 +121,72 @@ const vm = new Vue({
   ![](20220916/images/双向事件绑定.png)
   - 指令修饰符
    ![](20220916/images/指令修饰符.png)
+
+#### 2022.09.17-18 P52-P74 P227-P257
+- 条件渲染`v-if`/`v-show`
+  - `v-if`是动态创建和删除，适合默认不用显示的场景
+  - `v-show`是通过动态添加`style="display:none;"`属性来实现的，适合频繁切换的场景
+  - `v-else-if`和`v-else`只能紧跟在`v-if`后面使用
+
+- 循环渲染`v-for`
+  - 数组循环：`<li v-for="(item, index) in items" :key="item.id">{{ item.message }}</li>`
+  - 对象循环：`<div v-for="(value, name, index) in object">`
+  - key值注意事项：
+   ![](./20220917-20220918/images/v-for%20key值注意事项.png)
+   
+- 过滤器：用于文本格式化，只能用于v-bind和{{}}中
+ ![](20220917-20220918/images/filters.png)
+  - 私有：
+   ![](./20220917-20220918/images/私有filters.png)
+  - 全局：
+   ![](20220917-20220918/images/全局filters.png)
+  - 如果全局和私有都定义了，以私有为准
+  - 串联过滤器
+  - 过滤器第一个参数是管道符前面的参数，若要传其他参数可以从第二个开始 
+
+- 侦听器watch：监视数据的变化
+  - 方法格式：
+   ![](20220917-20220918/images/方法格式监听器.png)
+  - 对象格式：
+    - 进入页面立即触发：
+     ![](20220917-20220918/images/对象格式-立即调用.png)
+    - 监听对象属性的变化：
+     ![](20220917-20220918/images/对象格式-监听对象内部属性.png)
+    - 只侦听某个子属性的变化：
+     ![](20220917-20220918/images/对象格式-监听单个属性.png)
+
+- 计算属性computed，运算后的属性值
+ ![](20220917-20220918/images/计算属性.png)
+  - 声明时是一个方法，调用时采用属性方式调用
+  - 只有依赖的数据发生变化时，计算属性才会变化
+
+- ES6模板化
+  - 默认导出`export default {n1, show}`
+  - 按需导出`export const say = () => {}`
+  - 导入：`import m1, { n3 as my_define, say } from './03-es6模块化.js';`
+  - 直接导入并执行：`import './05-直接导入.js';`
+
+- Promise：解决回调地狱的问题
+  - Promise是构造函数，代表一个异步操作`const p = new Promise(function(resolve, reject){})`
+  - Promise方式实现文件读取
+    - 安装then-fs
+    - 导入：`import thenFs from 'then-fs';`
+    - 读取：
+     ![](20220917-20220918/images/Promise方式实现文件读取.png)
+  - Promise.all方法，并行的异步操作，所有操作执行结束后执行then指令
+   ![](20220917-20220918/images/Promise.all方法.png)
+  - Promise.race方法，谁先执行结束，就执行then指令
+  - 封装自己的Promise读文件方法
+   ![](20220917-20220918/images/封装Promise读文件函数.png)
+
+- async/await：简化Promise操作
+ ![](20220917-20220918/images/async和await简化Promise操作.png)
+  - 在 async 方法中，第一个 await 之前的代码会同步执行，await 之后的代码会异步执行
+  - 如果在 function 中使用了 await，则 function 必须被 async 修饰
+
+- 同步异步任务
+  - 执行示意图
+   ![](20220917-20220918/images/EventLoop.png)
+  - 宏任务和微任务
+   ![](20220917-20220918/images/宏任务&微任务.png)
+   ![](20220917-20220918/images/宏任务微任务执行顺序.png)

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+
+</head>
+
+<body style="padding: 15px;">
+    <div class="app">
+        <div class="card">
+            <div class="card-header">
+                添加品牌
+            </div>
+            <div class="card-body">
+                <form @submit.prevent="add">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <label class="sr-only" for="inlineFormInputGroup">brandname</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">品牌名称</div>
+                                </div>
+                                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="请输入品牌名称"
+                                    v-model.trim="brand">
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-2">添加</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">品牌名称</th>
+                    <th scope="col">状态</th>
+                    <th scope="col">创建时间</th>
+                    <th scope="col">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in car" :key="item.id">
+                    <th scope="row">{{ item.id }}</th>
+                    <td>{{ item.brand }}</td>
+                    <td>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" :id="'cb'+item.id"
+                                v-model="item.status">
+                            <label class="custom-control-label" :for="'cb'+item.id" v-if="item.status">已启用</label>
+                            <label class="custom-control-label" :for="'cb'+item.id" v-else>已禁用</label>
+                        </div>
+                    </td>
+                    <td>{{ item.time | formatDate }}</td>
+                    <td><a href="javascript:;" @click="remove(item.id)">删除</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../../vue.js"></script>
+    <script>
+        const formatDate = (dt) => {
+            const y = padZero(dt.getFullYear());
+            const m = padZero(dt.getMonth() + 1);
+            const d = padZero(dt.getDate());
+
+            const HH = padZero(dt.getHours());
+            const mm = padZero(dt.getMinutes());
+            const ss = padZero(dt.getSeconds());
+            return `${y}-${m}-${d} ${HH}:${mm}:${ss}`;
+        }
+        const padZero = t => t < 10 ? `0${t}` : t;
+        Vue.filter('formatDate', formatDate);
+        const vm = new Vue({
+            el: ".app",
+            data: {
+                car: [
+                    { id: 1, brand: "宝马", status: true, time: new Date() },
+                    { id: 2, brand: "奥迪", status: false, time: new Date() },
+                    { id: 3, brand: "奔驰", status: true, time: new Date() },
+                    { id: 4, brand: "劳斯莱斯", status: true, time: new Date() },
+                ],
+                brand: "",
+                id: 5,
+            },
+            methods: {
+                remove(id) { this.car = this.car.filter(item => item.id !== id) },
+                add() {
+                    if (this.brand === '') return alert('必须填写品牌名才能添加！');
+                    const newCar = {
+                        id: this.id,
+                        brand: this.brand,
+                        status: true,
+                        time: new Date(),
+                    }
+                    console.log(this.car);
+                    this.car.push(newCar);
+                    this.id++;
+                    this.brand = '';
+                },
+            },
+            computed: {
+                carFormated: function () {
+                    return this.car.map(element => {
+                        return {...element, time:formatDate(element.time)}
+                    });
+                }
+            }, 
+        })
+    </script>
+</body>
+
+</html>
